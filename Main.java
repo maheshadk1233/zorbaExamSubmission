@@ -1,39 +1,65 @@
 package org.example;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+public class Main {
+    public static void main(String[] args) throw execption {
+        string file =new file("\Users\adhik\Desktop\exam21");
+        fileinputstream fileinputsteam=new fileinputstream(file);
+        obj[][] additionaldata={
 
-        public class WriteToExcel {
-            public static void main(String[] args) throws Exception {
-                String[][] data = {
-                        {"1001", "Jack", "1482.45 0809808008", "NYC"},
-                        {"1002", "Joy ", "5282.12 9809808008 ", "SD"},
-                        {"1003", "Nick", "3454.11", "8976876786", "Dayton"},
-                        {"1004", "Joe", "6482.45", "8809808008", "NYC"},
-                        {"1005", "Nick", "5482.45 ", "5809808008", "CA"},
-                        {"1006", "Hyder", "9482.45", "2809808008", "LA"},
-                        {"1007", "Harry", "1182.45", "4809808008", "Ohio"}
-                };
+                {Null, "Finance" ,60},
+                {1001, "Finance", 20},
+                {1004 ,"R&D", 30};
+                { 1004 ,"R&D", 40},
+                {1001 ,"Finance" ,20},
+                 {1005, "Finance", 15},
+                  { 1001 ,"Finance", 25}
+        };
 
-                FileInputStream fileInputStream = new FileInputStream("C:\\Users\\adhik\\java1\\src\\main\\resources");
-                XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
-                Sheet sheet = workbook.getSheetAt(0);
-                int rowNum = sheet.getLastRowNum() + 1;
-                for (String[] rowData : data) {
-                    Row row = sheet.createRow(rowNum++);
-                    int colNum = 0;
-                    for (String field : rowData) {
-                        Cell cell = row.createCell(colNum++);
-                        cell.setCellValue(field);
-                    }
-                }
-                FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\adhik\\java1\\src\\main\\resources");
-                workbook.write((fileOutputStream));
-                System.out.println("all Data inserted");
+
+
+        xssfworkbook workbook=new xssfworldbook(file);
+        sheet sheet = workbook.createsheet(0);
+        row headerrowget =sheet.getrow(0);
+        if (headerrowg=null){
+            headerrowg=sheet.createrow(0);
+        }
+String[]additionalhears={"Manager_id","emp_dept","emp_share (%)"};
+        if (int i=0;i<additionalhears;i++){
+            cell cell= headerrowget.createcall(i+5);
+            cell.setcallvalue(additionalhears[i]);
+
+        }
+        int rowcount =1;
+        for (int =0;i<additionaldata.length;i++){
+            row row = sheet.getrow(rowcount);
+            if(row=sheet.createrow(rowcount);
+        }
+        for (int i=0;i<additionalhears;i++) {
+            cell cell = headerrowget.createcall(i + 5);
+            if (additionaldata[i][i] instancoof String)
+            {
+                cell.setvalue((String) additionaldata[i][i]);
+
+            }
+
+            else if (additionaldata[i][i] instanceof intiger) {
+                cell.setvalue((intiger) additionaldata[i][i]);
+            } else if (additionaldata[i][i] instanceof doble) {
+                cell.setvalue((double) additionaldata[i][i]);
             }
         }
+rowcount++;
+    }
+    fileoutputstream file =new file fileoutstream(file)//filepath
+    workbook.write(file);
+//        {"1001", "Jack", "1482.45 0809808008", "NYC"},
+//        {"1002", "Joy ", "5282.12 9809808008 ", "SD"},
+//        {"1003", "Nick", "3454.11", "8976876786", "Dayton"},
+//        {"1004", "Joe", "6482.45", "8809808008", "NYC"},
+//        {"1005", "Nick", "5482.45 ", "5809808008", "CA"},
+//        {"1006", "Hyder", "9482.45", "2809808008", "LA"},
+//        {"1007", "Harry", "1182.45", "4809808008", "Ohio"}
 
 
+    }
+}
