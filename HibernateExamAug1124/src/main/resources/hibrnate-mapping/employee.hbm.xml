@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.example.entity.Employee" table="employee">
+        <id name="employeeId" column="employee_id">
+            <generator class="increment"/>
+        </id>
+        <property name="employeeName" column="employee_name"/>
+        <property name="employeeAddress" column="employee_address"/>
+        <property name="employeeEmail" column="employee_email"/>
+        <property name="employeeExperience" column="emp_experience"/>
+<!--saving data from employee side -->
+<set name="skills" table="employee_skill" cascade="all" lazy="true">
+    <key column="employee_id"/>
+    <many-to-many class="org.example.entity.Skill" column="skill_id"/>
+</set>
+    </class>
+</hibernate-mapping>

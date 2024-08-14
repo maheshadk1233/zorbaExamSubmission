@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.example.entity.Skill" table="skill">
+        <id name="skillId" column="skill_id">
+            <generator class="increment"/>
+        </id>
+        <property name="skillName" column="skill_name"/>
+<!-- saving from skill side -->
+        <set name="employees" table="employee">
+            <key column="skill_id"/>
+            <many-to-many class="org.example.entity.Employee" column="employee_id"/>
+        </set>
+
+    </class>
+
+
+
+</hibernate-mapping>
