@@ -9,12 +9,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-    <!-- Help us to enable @Controller annotation across the application -->
+    <!--  enable @Controller annotation -->
     <annotation-driven/>
-    <!-- Enable component scanning -->
+
+    <!-- scan the entire package and find out the related controller-->
     <context:component-scan base-package="com.example"/>
 
-    <!--Helps to identify/locate the view (JSP/HTML)-->
+    <!-- locate the view (JSP/HTML)-->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/"/>
         <beans:property name="suffix" value=".jsp"/>
@@ -27,6 +28,34 @@
         <beans:property name="username" value="root"/>
         <beans:property name="password" value="hello123"/>
     </beans:bean>
-    <beans:bean name="UserDao" class="com.example.dao.UserInfoDAOImpl">
+
+    <beans:bean name="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="datasource"/>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+                <beans:prop key="hibernate.connection.pool_size">10</beans:prop>
+            </beans:props>
+        </beans:property>
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>com.example.entity.UserInfoEntity</beans:value>
+            </beans:list>
+        </beans:property>
     </beans:bean>
+
+    <beans:bean name="studentDAO" class="com.example.dao.UserInfoDAO">
+        <beans:constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
+    </beans:bean>
+
+    <!--Configure Spring Transaction manager-->
+    <beans:bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="hibernateSessionFactory"/>
+    </beans:bean>
+
+    <!--Enable @Transactional to handle all the operation like commit and rollback-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
 </beans:beans>
